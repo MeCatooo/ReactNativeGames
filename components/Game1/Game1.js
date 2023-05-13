@@ -2,17 +2,18 @@ import * as React from "react";
 import { StatusBar } from "expo-status-bar";
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
 import Card from "./Card";
+import storage from "../Storage";
 
 const cards = [
     "🥹",
     "🗣️",
     "🦷",
     "🍑",
-    "🌪️",
-    "🌎",
-    "👻",
-    "🥶",
-    "🥵",
+    // "🌪️",
+    // "🌎",
+    // "👻",
+    // "🥶",
+    // "🥵",
 ];
 
 export default function Game1() {
@@ -22,6 +23,7 @@ export default function Game1() {
     const [score, setScore] = React.useState(0);
 
     React.useEffect(() => {
+       // storage.load({ key: 'score' }).then((score1) => setScore(score1 ?? 0));
         if (selectedCards.length < 2) return;
 
         if (board[selectedCards[0]] === board[selectedCards[1]]) {
@@ -33,11 +35,19 @@ export default function Game1() {
         }
     }, [selectedCards]);
 
+    React.useEffect(() => {
+        storage.load({ key: 'score' }).then((score1) => setScore(score1 ?? 0))
+    }, []);
+
     const handleTapCard = (index) => {
         if (selectedCards.length >= 2 || selectedCards.includes(index)) return;
         setSelectedCards([...selectedCards, index]);
         setScore(score + 1);
-    };
+        storage.save({
+            key: 'score',
+            data: score,
+        });
+        };
 
     const didPlayerWin = () => matchedCards.length === board.length;
 

@@ -8,6 +8,7 @@ import Game2 from "./components/Game2/Game2";
 import Game3 from "./components/Game3/Game3";
 import SettingsScreen from "./components/Settings/SettingsScreen";
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
