@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StatusBar } from "expo-status-bar";
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
+import {Button, SafeAreaView, ScrollView, StyleSheet, Text} from "react-native";
 import Card from "./Card";
 import storage from "../Storage";
 
@@ -17,18 +17,22 @@ const cards = [
 ];
 
 export default function Game1() {
-    const [board, setBoard] = React.useState(() => shuffle([...cards, ...cards]));
+    const [board, setBoard] = React.useState([]);
     const [selectedCards, setSelectedCards] = React.useState([]);
     const [matchedCards, setMatchedCards] = React.useState([]);
     const [score, setScore] = React.useState(0);
 
     React.useEffect(() => {
-       // storage.load({ key: 'score' }).then((score1) => setScore(score1 ?? 0));
         if (selectedCards.length < 2) return;
 
         if (board[selectedCards[0]] === board[selectedCards[1]]) {
             setMatchedCards([...matchedCards, ...selectedCards]);
             setSelectedCards([]);
+            storage.save({
+                key: 'matchedCards',
+                data: matchedCards,
+            });
+            console.log(matchedCards)
         } else {
             const timeoutId = setTimeout(() => setSelectedCards([]), 1000);
             return () => clearTimeout(timeoutId);
@@ -37,6 +41,13 @@ export default function Game1() {
 
     React.useEffect(() => {
         storage.load({ key: 'score' }).then((score1) => setScore(score1 ?? 0))
+        storage.load({ key: 'board' }).then((board1) => {
+            setBoard(board1 ?? shuffle([...cards, ...cards]))
+        })
+        storage.load({ key: 'matchedCards' }).then((matchedCards1) => {
+            console.log(matchedCards1)
+            setMatchedCards(matchedCards1 ?? [])
+        })
     }, []);
 
     const handleTapCard = (index) => {
@@ -51,10 +62,18 @@ export default function Game1() {
 
     const didPlayerWin = () => matchedCards.length === board.length;
 
+    const restartGame = () => {
+        setBoard(shuffle([...cards, ...cards]));
+        setSelectedCards([]);
+        setMatchedCards([]);
+        setScore(0);
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.title}>
                 {didPlayerWin() ? "Congratulations 🎉" : "Memory"}
+                <Button title={"Restart"} onPress={restartGame}></Button>
             </Text>
             <Text style={styles.title}>Score: {score}</Text>
             <ScrollView contentContainerStyle={styles.board}>
@@ -108,5 +127,9 @@ function shuffle(array) {
         // Swap the elements at i and randomIndex
         [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
     }
+    storage.save({
+        key: 'board',
+        data: array,
+    });
     return array;
 }
