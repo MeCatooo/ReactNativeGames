@@ -81,13 +81,19 @@ export default function Game1() {
 
     const loadData = async () => {
         console.log("loadData");
-        storage.load({ key: 'score' }).then((score1) => setScore(score1 ?? 0))
+        try{
+            storage.load({ key: 'score' }).then((score1) => setScore(score1 ?? 0))
         storage.load({ key: 'board' }).then((board1) => {
             setBoard(board1 ?? shuffle([...cards, ...cards]))
         })
         storage.load({ key: 'matchedCards' }).then((matchedCards1) => {
             setMatchedCards(matchedCards1 ?? [])
         })
+        }
+        catch{
+            console.log("cannot load data");
+            restartGame();
+        }
     };
 
 

@@ -21,7 +21,7 @@ export default function App() {
                     options={{title: 'Welcome'}}
                 />
                 <Stack.Screen name="Game1" component={Game1} options={{orientation: 'all'}} />
-                <Stack.Screen name="Game2" component={Game2}/>
+                <Stack.Screen name="Game2" component={Game2} options={{orientation: 'portrait'}}/>
                 <Stack.Screen name="Game3" component={Game3}/>
                 <Stack.Screen name="Settings" component={SettingsScreen}/>
             </Stack.Navigator>

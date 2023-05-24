@@ -8,7 +8,7 @@ export const HomeScreen = ({navigation}) => {
             <View style={styles.buttonContainer}>
                 <Button title={"Game 1"} onPress={()=>navigation.navigate('Game1')}></Button>
                 <Button title={"Game 2"} onPress={()=>navigation.navigate('Game2')}></Button>
-                <Button title={"Game 3"} onPress={()=>navigation.navigate('Game3')}></Button>
+                <Button title={"About"} onPress={()=>navigation.navigate('Game3')}></Button>
                 <Button title={"Settings"} onPress={()=>navigation.navigate('Settings')}></Button>
             </View>
         </View>
