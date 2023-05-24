@@ -9,12 +9,14 @@ const cards = [
     "🗣️",
     "🦷",
     "🍑",
-    // "🌪️",
-    // "🌎",
-    // "👻",
-    // "🥶",
-    // "🥵",
-];
+    "🌪️",
+    "🌎",
+    "👻",
+    "🥶",
+    "🥵",
+].slice(0, 3); // place for variable from settings
+
+
 
 export default function Game1() {
     const [board, setBoard] = React.useState([]);
@@ -28,36 +30,24 @@ export default function Game1() {
         if (board[selectedCards[0]] === board[selectedCards[1]]) {
             setMatchedCards([...matchedCards, ...selectedCards]);
             setSelectedCards([]);
-            storage.save({
-                key: 'matchedCards',
-                data: matchedCards,
-            });
-            console.log(matchedCards)
         } else {
             const timeoutId = setTimeout(() => setSelectedCards([]), 1000);
             return () => clearTimeout(timeoutId);
         }
     }, [selectedCards]);
 
-    React.useEffect(() => {
-        storage.load({ key: 'score' }).then((score1) => setScore(score1 ?? 0))
-        storage.load({ key: 'board' }).then((board1) => {
-            setBoard(board1 ?? shuffle([...cards, ...cards]))
-        })
-        storage.load({ key: 'matchedCards' }).then((matchedCards1) => {
-            console.log(matchedCards1)
-            setMatchedCards(matchedCards1 ?? [])
-        })
-    }, []);
+    React.useEffect(() => { loadData()}, []);
+
+    React.useEffect(() => { 
+        if(board.length !== 0) {
+            saveData();
+        }
+    }, [score, matchedCards]);
 
     const handleTapCard = (index) => {
         if (selectedCards.length >= 2 || selectedCards.includes(index)) return;
         setSelectedCards([...selectedCards, index]);
         setScore(score + 1);
-        storage.save({
-            key: 'score',
-            data: score,
-        });
         };
 
     const didPlayerWin = () => matchedCards.length === board.length;
@@ -69,11 +59,42 @@ export default function Game1() {
         setScore(0);
     }
 
+    const saveData = async () => {
+        console.log("saveData");
+        storage.save({
+            key: 'score',
+            data: score,
+        });
+        console.log("Board");
+        console.log(board);
+        storage.save({
+            key: 'board',
+            data: board,
+        });
+        console.log("matchedCards");
+        console.log(matchedCards);
+        storage.save({
+            key: 'matchedCards',
+            data: matchedCards,
+        });
+    };
+
+    const loadData = async () => {
+        console.log("loadData");
+        storage.load({ key: 'score' }).then((score1) => setScore(score1 ?? 0))
+        storage.load({ key: 'board' }).then((board1) => {
+            setBoard(board1 ?? shuffle([...cards, ...cards]))
+        })
+        storage.load({ key: 'matchedCards' }).then((matchedCards1) => {
+            setMatchedCards(matchedCards1 ?? [])
+        })
+    };
+
+
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.title}>
                 {didPlayerWin() ? "Congratulations 🎉" : "Memory"}
-                <Button title={"Restart"} onPress={restartGame}></Button>
             </Text>
             <Text style={styles.title}>Score: {score}</Text>
             <ScrollView contentContainerStyle={styles.board}>
@@ -91,6 +112,7 @@ export default function Game1() {
                     );
                 })}
             </ScrollView>
+            <Button title={"Restart"} onPress={restartGame}></Button>
             <StatusBar style="light" />
         </SafeAreaView>
     );
@@ -116,20 +138,11 @@ const styles = StyleSheet.create({
     },
 });
 
-/**
- * Returns the array shuffled into a random order.
- * Do not edit this function.
- */
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const randomIndex = Math.floor(Math.random() * (i + 1));
 
-        // Swap the elements at i and randomIndex
         [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
     }
-    storage.save({
-        key: 'board',
-        data: array,
-    });
     return array;
 }
