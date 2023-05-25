@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import { Gyroscope } from 'expo-sensors';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {Gyroscope} from 'expo-sensors';
+import storage from "../Storage";
 
 export default function Game2() {
     const [gyroData, setGyroData] = useState({});
-    const [ballPosition, setBallPosition] = useState({ x: 0, y: 0, vx: 0, vy: 0 });
-    const [holePosition, setHolePosition] = useState({ x: 0, y: 0 });
+    const [ballPosition, setBallPosition] = useState({x: 0, y: 0, vx: 0, vy: 0});
+    const [holePosition, setHolePosition] = useState({x: 0, y: 0});
     const [gameStarted, setGameStarted] = useState(false);
     const [gameOver, setGameOver] = useState(false);
     const [score, setScore] = useState(0);
     const [highestScore, setHighestScore] = useState(0);
-    const [timer, setTimer] = useState(60); // 60 seconds
+    const [timer, setTimer] = useState(60);
+    const [timerSettings, setTimerSettings] = useState(60);
 
     useEffect(() => {
         Gyroscope.setUpdateInterval(16);
@@ -24,11 +26,11 @@ export default function Game2() {
 
     useEffect(() => {
         if (gameStarted && !gameOver) {
-            let { width, height } = Dimensions.get('window');
+            let {width, height} = Dimensions.get('window');
             width = width * 0.9;
             height = height * 0.9;
-            const { x: ballX, y: ballY, vx, vy } = ballPosition;
-            const { x: holeX, y: holeY } = holePosition;
+            const {x: ballX, y: ballY, vx, vy} = ballPosition;
+            const {x: holeX, y: holeY} = holePosition;
             const dt = 1 / 60; // delta time
             const ax = gyroData.y * 1000; // acceleration along x axis
             const ay = gyroData.x * 1000; // acceleration along y axis
@@ -43,7 +45,7 @@ export default function Game2() {
                 newVy = -newVy * 0.7; // reflect velocity
             }
 
-            setBallPosition({ x: newX, y: newY, vx: newVx, vy: newVy });
+            setBallPosition({x: newX, y: newY, vx: newVx, vy: newVy});
 
             if (
                 Math.abs(ballX - holeX) < 30 &&
@@ -55,7 +57,7 @@ export default function Game2() {
             ) {
                 setScore(prevScore => prevScore + 1);
                 setHolePosition(generateRandomHolePosition(width, height));
-                setBallPosition({ x: width / 2, y: height / 2, vx: newVx * 1.1, vy: newVy * 1.1 });
+                setBallPosition({x: width / 2, y: height / 2, vx: newVx * 1.1, vy: newVy * 1.1});
             }
 
             if (timer <= 0) {
@@ -65,11 +67,11 @@ export default function Game2() {
     }, [gyroData, timer]);
 
     const startGame = () => {
-        const { width, height } = Dimensions.get('window');
-        setBallPosition({ x: width / 2, y: height / 2, vx: 0, vy: 0 });
+        const {width, height} = Dimensions.get('window');
+        setBallPosition({x: width / 2, y: height / 2, vx: 0, vy: 0});
         setHolePosition(generateRandomHolePosition(width, height));
         setScore(0);
-        setTimer(60);
+        setTimer(timerSettings);
         setGameStarted(true);
         setGameOver(false);
     };
@@ -78,12 +80,13 @@ export default function Game2() {
         const holeSize = 60;
         const holeX = Math.floor(Math.random() * (width - holeSize)) + holeSize;
         const holeY = Math.floor(Math.random() * (height - holeSize)) + holeSize;
-        return { x: holeX, y: holeY };
+        return {x: holeX, y: holeY};
     };
 
     useEffect(() => {
         if (score > highestScore) {
             setHighestScore(score);
+            saveData().then();
         }
     }, [score]);
 
@@ -95,6 +98,33 @@ export default function Game2() {
             return () => clearInterval(timerId);
         }
     }, [gameStarted, gameOver]);
+
+    useEffect(() => {
+        loadData().then();
+    }, []);
+
+    const loadData = async () => {
+        storage.load({
+            key: 'highestScore',
+        }).then(ret => {
+            console.log(ret)
+            setHighestScore(ret);
+        }).catch(e=>console.log(e))
+
+        storage.load({
+            key: 'ballSettings',
+        }).then(ret => {
+            setTimerSettings(ret.option)
+        }).catch(e=>console.log(e))
+    }
+
+    const saveData = async () => {
+        console.log(highestScore)
+        storage.save({
+            key: 'highestScore',
+            data: highestScore,
+        }).then();
+    }
 
     return (
         <View style={styles.container}>
@@ -116,8 +146,8 @@ export default function Game2() {
             )}
             {gameStarted && (
                 <>
-                    <View style={[styles.ball, { left: ballPosition.x, top: ballPosition.y }]} />
-                    <View style={[styles.hole, { left: holePosition.x, top: holePosition.y }]} />
+                    <View style={[styles.ball, {left: ballPosition.x, top: ballPosition.y}]}/>
+                    <View style={[styles.hole, {left: holePosition.x, top: holePosition.y}]}/>
                 </>
             )}
         </View>

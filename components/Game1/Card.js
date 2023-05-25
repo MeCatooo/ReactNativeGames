@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { Text, StyleSheet, Pressable } from "react-native";
 
 export default function Card({ onPress, isTurnedOver, children }) {
     return (

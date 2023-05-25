@@ -1,19 +1,49 @@
-import {Button, View} from "react-native";
-import React from "react";
-import {StyleSheet} from "react-native";
+import { Image, View, TouchableOpacity, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 
-export const HomeScreen = ({navigation}) => {
+export const HomeScreen = ({ navigation }) => {
+
+    React.useEffect(
+        () =>
+            navigation.addListener('beforeRemove', (e) => {
+                e.preventDefault();
+            }),
+        [navigation]
+    );
+
     return (
         <View style={styles.container}>
-            <View style={styles.buttonContainer}>
-                <Button title={"Game 1"} onPress={()=>navigation.navigate('Game1')}></Button>
-                <Button title={"Game 2"} onPress={()=>navigation.navigate('Game2')}></Button>
-                <Button title={"About"} onPress={()=>navigation.navigate('Game3')}></Button>
-                <Button title={"Settings"} onPress={()=>navigation.navigate('Settings')}></Button>
+            <View style={styles.buttonGrid}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate('Memory')}
+                >
+                    <Text style={styles.buttonText}>Memory game</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate('Ball')}
+                >
+                    <Text style={styles.buttonText}>Ball game</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate('About')}
+                >
+                    <Text style={styles.buttonText}>About</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate('Settings')}
+                >
+                    <Text style={styles.buttonText}>Settings</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {
@@ -21,9 +51,25 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    buttonContainer: {
-        justifyContent: 'center',
+    buttonGrid: {
         width: '80%',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
         marginVertical: 16,
+    },
+    button: {
+        width: '48%',
+        aspectRatio: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#eaeaea',
+        borderRadius: 10,
+        marginBottom: 16,
+    },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
 });

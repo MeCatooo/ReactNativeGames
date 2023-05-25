@@ -1,10 +1,10 @@
 import * as React from "react";
-import { StatusBar } from "expo-status-bar";
+import {StatusBar} from "expo-status-bar";
 import {Button, SafeAreaView, ScrollView, StyleSheet, Text} from "react-native";
 import Card from "./Card";
 import storage from "../Storage";
 
-const cards = [
+let cards = [
     "🥹",
     "🗣️",
     "🦷",
@@ -14,8 +14,7 @@ const cards = [
     "👻",
     "🥶",
     "🥵",
-].slice(0, 3); // place for variable from settings
-
+];
 
 
 export default function Game1() {
@@ -36,10 +35,12 @@ export default function Game1() {
         }
     }, [selectedCards]);
 
-    React.useEffect(() => { loadData()}, []);
+    React.useEffect(() => {
+        loadData()
+    }, []);
 
-    React.useEffect(() => { 
-        if(board.length !== 0) {
+    React.useEffect(() => {
+        if (board.length !== 0) {
             saveData();
         }
     }, [score, matchedCards]);
@@ -48,7 +49,7 @@ export default function Game1() {
         if (selectedCards.length >= 2 || selectedCards.includes(index)) return;
         setSelectedCards([...selectedCards, index]);
         setScore(score + 1);
-        };
+    };
 
     const didPlayerWin = () => matchedCards.length === board.length;
 
@@ -60,19 +61,14 @@ export default function Game1() {
     }
 
     const saveData = async () => {
-        console.log("saveData");
         storage.save({
             key: 'score',
             data: score,
         });
-        console.log("Board");
-        console.log(board);
         storage.save({
             key: 'board',
             data: board,
         });
-        console.log("matchedCards");
-        console.log(matchedCards);
         storage.save({
             key: 'matchedCards',
             data: matchedCards,
@@ -80,17 +76,19 @@ export default function Game1() {
     };
 
     const loadData = async () => {
-        console.log("loadData");
-        try{
-            storage.load({ key: 'score' }).then((score1) => setScore(score1 ?? 0))
-        storage.load({ key: 'board' }).then((board1) => {
-            setBoard(board1 ?? shuffle([...cards, ...cards]))
-        })
-        storage.load({ key: 'matchedCards' }).then((matchedCards1) => {
-            setMatchedCards(matchedCards1 ?? [])
-        })
-        }
-        catch{
+        try {
+            storage.load({key: 'score'}).then((score1) => setScore(score1 ?? 0))
+            storage.load({key: 'board'}).then((board1) => {
+                setBoard(board1 ?? shuffle([...cards, ...cards]))
+            })
+            storage.load({key: 'matchedCards'}).then((matchedCards1) => {
+                setMatchedCards(matchedCards1 ?? [])
+            })
+            storage.load({key: 'memorySettings'}).then((memorySettings) => {
+                cards = cards.slice(0, memorySettings.number)
+            })
+
+        } catch {
             console.log("cannot load data");
             restartGame();
         }
@@ -119,7 +117,7 @@ export default function Game1() {
                 })}
             </ScrollView>
             <Button title={"Restart"} onPress={restartGame}></Button>
-            <StatusBar style="light" />
+            <StatusBar style="light"/>
         </SafeAreaView>
     );
 }
