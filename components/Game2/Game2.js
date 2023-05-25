@@ -109,13 +109,13 @@ export default function Game2() {
         }).then(ret => {
             console.log(ret)
             setHighestScore(ret);
-        }).catch(e=>console.log(e))
+        }).catch(()=>{})
 
         storage.load({
             key: 'ballSettings',
         }).then(ret => {
             setTimerSettings(ret.option)
-        }).catch(e=>console.log(e))
+        }).catch(()=>{})
     }
 
     const saveData = async () => {

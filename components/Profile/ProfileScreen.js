@@ -15,7 +15,7 @@ export const ProfileScreen = ({navigation}) => {
     }, []);
 
     React.useEffect(() => {
-        loadData();
+        loadData().catch(()=>{});
     }, []);
 
     const loadData = async () => {
@@ -31,7 +31,7 @@ export const ProfileScreen = ({navigation}) => {
         storage.save({
             key: 'username',
             data: text,
-        });
+        }).catch(()=>{});
     }
 
     const handleUsernameChange = (text) => {
