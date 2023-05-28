@@ -1,8 +1,7 @@
-import { Image, View, TouchableOpacity, Text } from "react-native";
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import React from "react";
 
-export const HomeScreen = ({ navigation }) => {
+export const HomeScreen = ({navigation}) => {
 
     React.useEffect(
         () =>

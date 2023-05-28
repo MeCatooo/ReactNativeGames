@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {Gyroscope} from 'expo-sensors';
 import storage from "../Storage";
 
@@ -114,13 +114,15 @@ export default function Game2() {
                 key: 'highestScore',
             }).then(ret => {
                 setHighestScore(ret);
-            }).catch(()=>{})
+            }).catch(() => {
+            })
 
             storage.load({
                 key: 'ballSettings',
             }).then(ret => {
                 setTimerSettings(ret.option)
-            }).catch(()=>{})
+            }).catch(() => {
+            })
         } catch {
 
         }

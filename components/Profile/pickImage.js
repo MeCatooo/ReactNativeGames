@@ -1,7 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Button, Image } from 'react-native';
-import { useEffect, useRef, useState } from 'react';
-import { Camera } from 'expo-camera';
+import {StatusBar} from 'expo-status-bar';
+import {Button, Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {useEffect, useRef, useState} from 'react';
+import {Camera} from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import {saveStore} from "../Storage";
 
@@ -41,16 +41,16 @@ export const PickImage = ({navigation}) => {
 
         let savePhoto = () => {
             console.log(photo)
-            saveStore( "profilePic",
+            saveStore("profilePic",
                 photo.base64
             )
         };
 
         return (
             <SafeAreaView style={styles.container}>
-                <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
-                {hasMediaLibraryPermission ? <Button title="Set" onPress={savePhoto} /> : undefined}
-                <Button title="Discard" onPress={() => setPhoto(undefined)} />
+                <Image style={styles.preview} source={{uri: "data:image/jpg;base64," + photo.base64}}/>
+                {hasMediaLibraryPermission ? <Button title="Set" onPress={savePhoto}/> : undefined}
+                <Button title="Discard" onPress={() => setPhoto(undefined)}/>
             </SafeAreaView>
         );
     }
@@ -58,11 +58,11 @@ export const PickImage = ({navigation}) => {
     return (
         <SafeAreaView style={styles.container}>
             <Camera style={styles.container} ref={cameraRef}>
-                    <View style={styles.buttonContainer}>
-                        <Button title="Take Pic" onPress={takePic} />
-                        <Button title="Cancel" onPress={()=>navigation.navigate('Profile')}/>
-                    </View>
-                <StatusBar style="auto" />
+                <View style={styles.buttonContainer}>
+                    <Button title="Take Pic" onPress={takePic}/>
+                    <Button title="Cancel" onPress={() => navigation.navigate('Profile')}/>
+                </View>
+                <StatusBar style="auto"/>
             </Camera>
         </SafeAreaView>
     );
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        width:'100%'
+        width: '100%'
     },
     buttonContainer: {
         backgroundColor: '#fff',

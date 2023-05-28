@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Text, StyleSheet, Pressable } from "react-native";
+import {Pressable, StyleSheet, Text} from "react-native";
 
-export default function Card({ onPress, isTurnedOver, children, testID }) {
+export default function Card({onPress, isTurnedOver, children, testID}) {
     return (
         <Pressable
             style={isTurnedOver ? styles.cardUp : styles.cardDown}

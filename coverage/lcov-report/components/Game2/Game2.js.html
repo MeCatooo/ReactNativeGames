@@ -1,63 +1,63 @@
-
 <!doctype html>
 <html lang="en">
 
 <head>
     <title>Code coverage report for components/Game2/Game2.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <link href="../../prettify.css" rel="stylesheet"/>
+    <link href="../../base.css" rel="stylesheet"/>
+    <link href="../../favicon.png" rel="shortcut icon" type="image/x-icon"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <style type='text/css'>
         .coverage-summary .sorter {
             background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
-    
+
 <body>
 <div class='wrapper'>
     <div class='pad1'>
         <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Game2</a> Game2.js</h1>
         <div class='clearfix'>
-            
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">81.25% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>65/80</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">74.28% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>26/35</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">61.9% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>13/21</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">81.81% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>63/77</span>
             </div>
-        
-            
+
+
         </div>
         <p class="quiet">
-            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for
+            the previous block.
         </p>
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input id="fileSearch" oninput="onInput()" type="search">
             </div>
         </template>
     </div>
@@ -511,8 +511,8 @@ export default function Game2() {
 &nbsp;
     useEffect(() =&gt; {
         Gyroscope.setUpdateInterval(16);
-        Gyroscope.addListener(<span class="fstat-no" title="function not covered" >gy</span>roData =&gt; {
-<span class="cstat-no" title="statement not covered" >            setGyroData(gyroData);</span>
+        Gyroscope.addListener(<span class="fstat-no" title="function not covered">gy</span>roData =&gt; {
+<span class="cstat-no" title="statement not covered">            setGyroData(gyroData);</span>
         });
         return () =&gt; {
             Gyroscope.removeAllListeners();
@@ -534,25 +534,27 @@ export default function Game2() {
             const newX = Math.max(0, Math.min(width, ballX + newVx * dt));
             const newY = Math.max(0, Math.min(height, ballY + newVy * dt));
 &nbsp;
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (newX === 0 || newX === width) {
-<span class="cstat-no" title="statement not covered" >                newVx = -newVx * 0.7;</span>
-            } else <span class="missing-if-branch" title="if path not taken" >I</span>if (newY === 0 || newY === height) {
-<span class="cstat-no" title="statement not covered" >                newVy = -newVy * 0.7;</span>
+            <span class="missing-if-branch" title="if path not taken">I</span>if (newX === 0 || newX === width) {
+<span class="cstat-no" title="statement not covered">                newVx = -newVx * 0.7;</span>
+            } else <span class="missing-if-branch" title="if path not taken">I</span>if (newY === 0 || newY === height) {
+<span class="cstat-no" title="statement not covered">                newVy = -newVy * 0.7;</span>
             }
 &nbsp;
             setBallPosition({x: newX, y: newY, vx: newVx, vy: newVy});
 &nbsp;
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (
+            <span class="missing-if-branch" title="if path not taken">I</span>if (
                 Math.abs(ballX - holeX) &lt; 30 &amp;&amp;
-<span class="branch-1 cbranch-no" title="branch not covered" >                Math.abs(ballY - holeY) &lt; 30 </span>&amp;&amp;
-<span class="branch-2 cbranch-no" title="branch not covered" >                holeX &gt; 0 </span>&amp;&amp;
-<span class="branch-3 cbranch-no" title="branch not covered" >                holeX &lt; width </span>&amp;&amp;
-<span class="branch-4 cbranch-no" title="branch not covered" >                holeY &gt; 0 </span>&amp;&amp;
-<span class="branch-5 cbranch-no" title="branch not covered" >                holeY &lt; height</span>
+<span class="branch-1 cbranch-no" title="branch not covered">                Math.abs(ballY - holeY) &lt; 30 </span>&amp;&amp;
+<span class="branch-2 cbranch-no" title="branch not covered">                holeX &gt; 0 </span>&amp;&amp;
+<span class="branch-3 cbranch-no" title="branch not covered">                holeX &lt; width </span>&amp;&amp;
+<span class="branch-4 cbranch-no" title="branch not covered">                holeY &gt; 0 </span>&amp;&amp;
+<span class="branch-5 cbranch-no" title="branch not covered">                holeY &lt; height</span>
             ) {
-<span class="cstat-no" title="statement not covered" >                setScore(<span class="fstat-no" title="function not covered" >pr</span>evScore =&gt; <span class="cstat-no" title="statement not covered" >prevScore + 1)</span>;</span>
-<span class="cstat-no" title="statement not covered" >                setHolePosition(generateRandomHolePosition(width, height));</span>
-<span class="cstat-no" title="statement not covered" >                setBallPosition({x: width / 2, y: height / 2, vx: newVx * 1.1, vy: newVy * 1.1});</span>
+<span class="cstat-no" title="statement not covered">                setScore(<span class="fstat-no"
+                                                                                    title="function not covered">pr</span>evScore =&gt; <span
+        class="cstat-no" title="statement not covered">prevScore + 1)</span>;</span>
+<span class="cstat-no" title="statement not covered">                setHolePosition(generateRandomHolePosition(width, height));</span>
+<span class="cstat-no" title="statement not covered">                setBallPosition({x: width / 2, y: height / 2, vx: newVx * 1.1, vy: newVy * 1.1});</span>
             }
 &nbsp;
             if (timer &lt;= 0) {
@@ -578,15 +580,15 @@ export default function Game2() {
         return {x: holeX, y: holeY};
     };
 &nbsp;
-    const updateScore = <span class="fstat-no" title="function not covered" >(n</span>ewScore) =&gt; {
-<span class="cstat-no" title="statement not covered" >        setScore(newScore);</span>
+    const updateScore = <span class="fstat-no" title="function not covered">(n</span>ewScore) =&gt; {
+<span class="cstat-no" title="statement not covered">        setScore(newScore);</span>
     };
 &nbsp;
 &nbsp;
     useEffect(() =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (score &gt; highestScore) {
-<span class="cstat-no" title="statement not covered" >            setHighestScore(score);</span>
-<span class="cstat-no" title="statement not covered" >            saveData().then();</span>
+        <span class="missing-if-branch" title="if path not taken">I</span>if (score &gt; highestScore) {
+<span class="cstat-no" title="statement not covered">            setHighestScore(score);</span>
+<span class="cstat-no" title="statement not covered">            saveData().then();</span>
         }
     }, [score]);
 &nbsp;
@@ -607,23 +609,23 @@ export default function Game2() {
         try {
             storage.load({
                 key: 'highestScore',
-            }).then(<span class="fstat-no" title="function not covered" >re</span>t =&gt; {
-<span class="cstat-no" title="statement not covered" >                setHighestScore(ret);</span>
-            }).catch(<span class="fstat-no" title="function not covered" >()</span>=&gt;{})
+            }).then(<span class="fstat-no" title="function not covered">re</span>t =&gt; {
+<span class="cstat-no" title="statement not covered">                setHighestScore(ret);</span>
+            }).catch(<span class="fstat-no" title="function not covered">()</span>=&gt;{})
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            storage.load({</span>
+<span class="cstat-no" title="statement not covered">            storage.load({</span>
                 key: 'ballSettings',
-            }).then(<span class="fstat-no" title="function not covered" >re</span>t =&gt; {
-<span class="cstat-no" title="statement not covered" >                setTimerSettings(ret.option)</span>
-            }).catch(<span class="fstat-no" title="function not covered" >()</span>=&gt;{})
+            }).then(<span class="fstat-no" title="function not covered">re</span>t =&gt; {
+<span class="cstat-no" title="statement not covered">                setTimerSettings(ret.option)</span>
+            }).catch(<span class="fstat-no" title="function not covered">()</span>=&gt;{})
         } catch {
 &nbsp;
         }
     }
 &nbsp;
-    const saveData = <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
-<span class="cstat-no" title="statement not covered" >        console.log(highestScore)</span>
-<span class="cstat-no" title="statement not covered" >        storage.save({</span>
+    const saveData = <span class="fstat-no" title="function not covered">as</span>ync () =&gt; {
+<span class="cstat-no" title="statement not covered">        console.log(highestScore)</span>
+<span class="cstat-no" title="statement not covered">        storage.save({</span>
             key: 'highestScore',
             data: highestScore,
         }).then();
@@ -710,21 +712,21 @@ const styles = StyleSheet.create({
 });
 &nbsp;</pre></td></tr></table></pre>
 
-                <div class='push'></div><!-- for sticky footer -->
-            </div><!-- /wrapper -->
-            <div class='footer quiet pad2 space-top1 center small'>
-                Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-28T12:57:02.498Z
-            </div>
-        <script src="../../prettify.js"></script>
-        <script>
-            window.onload = function () {
-                prettyPrint();
-            };
-        </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
-    </body>
+    <div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+    Code coverage generated by
+    <a href="https://istanbul.js.org/" rel="noopener noreferrer" target="_blank">istanbul</a>
+    at 2023-05-28T12:57:02.498Z
+</div>
+<script src="../../prettify.js"></script>
+<script>
+    window.onload = function () {
+        prettyPrint();
+    };
+</script>
+<script src="../../sorter.js"></script>
+<script src="../../block-navigation.js"></script>
+</body>
 </html>
     

@@ -1,63 +1,63 @@
-
 <!doctype html>
 <html lang="en">
 
 <head>
     <title>Code coverage report for components/Storage.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../prettify.css" />
-    <link rel="stylesheet" href="../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <link href="../prettify.css" rel="stylesheet"/>
+    <link href="../base.css" rel="stylesheet"/>
+    <link href="../favicon.png" rel="shortcut icon" type="image/x-icon"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <style type='text/css'>
         .coverage-summary .sorter {
             background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
-    
+
 <body>
 <div class='wrapper'>
     <div class='pad1'>
         <h1><a href="../index.html">All files</a> / <a href="index.html">components</a> Storage.js</h1>
         <div class='clearfix'>
-            
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">10.25% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>4/39</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>0/10</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>0/4</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">11.76% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>4/34</span>
             </div>
-        
-            
+
+
         </div>
         <p class="quiet">
-            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for
+            the previous block.
         </p>
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input id="fileSearch" oninput="onInput()" type="search">
             </div>
         </template>
     </div>
@@ -135,7 +135,8 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span
+        class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -218,84 +219,92 @@ const storage = new Storage({
 &nbsp;
 });
 &nbsp;
-const saveStore = <span class="fstat-no" title="function not covered" >as</span>ync (key, data) =&gt;
+const saveStore = <span class="fstat-no" title="function not covered">as</span>ync (key, data) =&gt;
 {
-<span class="cstat-no" title="statement not covered" >    try</span>
+<span class="cstat-no" title="statement not covered">    try</span>
     {
-        const store = <span class="cstat-no" title="statement not covered" >JSON.stringify(data).match(/.{1,1000000}/g);</span>
-<span class="cstat-no" title="statement not covered" >        console.log(store.length)</span>
-<span class="cstat-no" title="statement not covered" >        store.forEach(<span class="fstat-no" title="function not covered" >(p</span>art, index) =&gt; { <span class="cstat-no" title="statement not covered" >AsyncStorage.setItem((key + index), part); </span>});</span>
-<span class="cstat-no" title="statement not covered" >        AsyncStorage.setItem(key, ("" + store.length));</span>
+        const store = <span class="cstat-no"
+                            title="statement not covered">JSON.stringify(data).match(/.{1,1000000}/g);</span>
+<span class="cstat-no" title="statement not covered">        console.log(store.length)</span>
+<span class="cstat-no" title="statement not covered">        store.forEach(<span class="fstat-no"
+                                                                                 title="function not covered">(p</span>art, index) =&gt; { <span
+        class="cstat-no" title="statement not covered">AsyncStorage.setItem((key + index), part); </span>});</span>
+<span class="cstat-no" title="statement not covered">        AsyncStorage.setItem(key, ("" + store.length));</span>
     }
     catch (error)
     {
-<span class="cstat-no" title="statement not covered" >        console.log("Could not save store : ");</span>
-<span class="cstat-no" title="statement not covered" >        console.log(error.message);</span>
+<span class="cstat-no" title="statement not covered">        console.log("Could not save store : ");</span>
+<span class="cstat-no" title="statement not covered">        console.log(error.message);</span>
     }
 };
 &nbsp;
-const getStore = <span class="fstat-no" title="function not covered" >as</span>ync (key) =&gt;
+const getStore = <span class="fstat-no" title="function not covered">as</span>ync (key) =&gt;
 {
-<span class="cstat-no" title="statement not covered" >    try</span>
+<span class="cstat-no" title="statement not covered">    try</span>
     {
-        let store = <span class="cstat-no" title="statement not covered" >"";</span>
-        let numberOfParts = <span class="cstat-no" title="statement not covered" >await AsyncStorage.getItem(key);</span>
-<span class="cstat-no" title="statement not covered" >        if(typeof(numberOfParts) === 'undefined' || numberOfParts === null)</span>
-<span class="cstat-no" title="statement not covered" >            return null;</span>
+        let store = <span class="cstat-no" title="statement not covered">"";</span>
+        let numberOfParts = <span class="cstat-no" title="statement not covered">await AsyncStorage.getItem(key);</span>
+<span class="cstat-no" title="statement not covered">        if(typeof(numberOfParts) === 'undefined' || numberOfParts === null)</span>
+<span class="cstat-no" title="statement not covered">            return null;</span>
         else
-<span class="cstat-no" title="statement not covered" >            numberOfParts = parseInt(numberOfParts);</span>
-<span class="cstat-no" title="statement not covered" >        for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; numberOfParts; i++) { <span class="cstat-no" title="statement not covered" >store += await AsyncStorage.getItem(key + i); </span>}</span>
-<span class="cstat-no" title="statement not covered" >        if(store === "")</span>
-<span class="cstat-no" title="statement not covered" >            return null;</span>
-<span class="cstat-no" title="statement not covered" >        console.log(JSON.parse(store).slice(0, 100))</span>
-<span class="cstat-no" title="statement not covered" >        return JSON.parse(store);</span>
+<span class="cstat-no" title="statement not covered">            numberOfParts = parseInt(numberOfParts);</span>
+<span class="cstat-no" title="statement not covered">        for (let i = <span class="cstat-no"
+                                                                                title="statement not covered">0;</span> i &lt; numberOfParts; i++) { <span
+        class="cstat-no" title="statement not covered">store += await AsyncStorage.getItem(key + i); </span>}</span>
+<span class="cstat-no" title="statement not covered">        if(store === "")</span>
+<span class="cstat-no" title="statement not covered">            return null;</span>
+<span class="cstat-no" title="statement not covered">        console.log(JSON.parse(store).slice(0, 100))</span>
+<span class="cstat-no" title="statement not covered">        return JSON.parse(store);</span>
     }
     catch (error)
     {
-<span class="cstat-no" title="statement not covered" >        console.log("Could not get [" + key + "] from store.");</span>
-<span class="cstat-no" title="statement not covered" >        console.log(error);</span>
-<span class="cstat-no" title="statement not covered" >        return null;</span>
+<span class="cstat-no"
+      title="statement not covered">        console.log("Could not get [" + key + "] from store.");</span>
+<span class="cstat-no" title="statement not covered">        console.log(error);</span>
+<span class="cstat-no" title="statement not covered">        return null;</span>
     }
 };
 &nbsp;
-const clearStore = <span class="fstat-no" title="function not covered" >as</span>ync (key) =&gt;
+const clearStore = <span class="fstat-no" title="function not covered">as</span>ync (key) =&gt;
 {
-<span class="cstat-no" title="statement not covered" >    try</span>
+<span class="cstat-no" title="statement not covered">    try</span>
     {
-<span class="cstat-no" title="statement not covered" >        console.log("Clearing store for [" + key + "]");</span>
-        let numberOfParts = <span class="cstat-no" title="statement not covered" >await AsyncStorage.getItem(key);</span>
-<span class="cstat-no" title="statement not covered" >        if(typeof(numberOfParts) !== 'undefined' &amp;&amp; numberOfParts !== null)</span>
+<span class="cstat-no" title="statement not covered">        console.log("Clearing store for [" + key + "]");</span>
+        let numberOfParts = <span class="cstat-no" title="statement not covered">await AsyncStorage.getItem(key);</span>
+<span class="cstat-no" title="statement not covered">        if(typeof(numberOfParts) !== 'undefined' &amp;&amp; numberOfParts !== null)</span>
         {
-<span class="cstat-no" title="statement not covered" >            numberOfParts = parseInt(numberOfParts);</span>
-<span class="cstat-no" title="statement not covered" >            for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; numberOfParts; i++) { <span class="cstat-no" title="statement not covered" >AsyncStorage.removeItem(key + i); </span>}</span>
-<span class="cstat-no" title="statement not covered" >            AsyncStorage.removeItem(key);</span>
+<span class="cstat-no" title="statement not covered">            numberOfParts = parseInt(numberOfParts);</span>
+<span class="cstat-no" title="statement not covered">            for (let i = <span class="cstat-no"
+                                                                                    title="statement not covered">0;</span> i &lt; numberOfParts; i++) { <span
+        class="cstat-no" title="statement not covered">AsyncStorage.removeItem(key + i); </span>}</span>
+<span class="cstat-no" title="statement not covered">            AsyncStorage.removeItem(key);</span>
         }
     }
     catch (error)
     {
-<span class="cstat-no" title="statement not covered" >        console.log("Could not clear store : ");</span>
-<span class="cstat-no" title="statement not covered" >        console.log(error.message);</span>
+<span class="cstat-no" title="statement not covered">        console.log("Could not clear store : ");</span>
+<span class="cstat-no" title="statement not covered">        console.log(error.message);</span>
     }
 };
 &nbsp;
 export default storage;
 export { saveStore, getStore, clearStore };</pre></td></tr></table></pre>
 
-                <div class='push'></div><!-- for sticky footer -->
-            </div><!-- /wrapper -->
-            <div class='footer quiet pad2 space-top1 center small'>
-                Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-28T12:57:02.498Z
-            </div>
-        <script src="../prettify.js"></script>
-        <script>
-            window.onload = function () {
-                prettyPrint();
-            };
-        </script>
-        <script src="../sorter.js"></script>
-        <script src="../block-navigation.js"></script>
-    </body>
+    <div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+    Code coverage generated by
+    <a href="https://istanbul.js.org/" rel="noopener noreferrer" target="_blank">istanbul</a>
+    at 2023-05-28T12:57:02.498Z
+</div>
+<script src="../prettify.js"></script>
+<script>
+    window.onload = function () {
+        prettyPrint();
+    };
+</script>
+<script src="../sorter.js"></script>
+<script src="../block-navigation.js"></script>
+</body>
 </html>
     

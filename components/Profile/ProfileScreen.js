@@ -9,13 +9,14 @@ export const ProfileScreen = ({navigation}) => {
 
     React.useEffect(() => {
         getStore('profilePic').then(ret => {
-            const loadedIcon = ret!=null ? `data:image/png;base64,${ret}` : require('../../assets/icon.png');
+            const loadedIcon = ret != null ? `data:image/png;base64,${ret}` : require('../../assets/icon.png');
             setBase64Icon(loadedIcon);
         });
     }, []);
 
     React.useEffect(() => {
-        loadData().catch(()=>{});
+        loadData().catch(() => {
+        });
     }, []);
 
     const loadData = async () => {
@@ -31,7 +32,8 @@ export const ProfileScreen = ({navigation}) => {
         storage.save({
             key: 'username',
             data: text,
-        }).catch(()=>{});
+        }).catch(() => {
+        });
     }
 
     const handleUsernameChange = (text) => {
@@ -40,7 +42,7 @@ export const ProfileScreen = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Image style={styles.preview} source={typeof base64Icon === 'string' ? { uri: base64Icon } : base64Icon}/>
+            <Image style={styles.preview} source={typeof base64Icon === 'string' ? {uri: base64Icon} : base64Icon}/>
             <View style={styles.buttonContainer}>
                 <Button title="Set" onPress={() => navigation.navigate('ProfilePic')}/>
                 <Button title={"Reset"} onPress={() => {
@@ -55,7 +57,9 @@ export const ProfileScreen = ({navigation}) => {
                     onChangeText={onChangeText}
                     value={text}
                 />
-                <Button title={"Save"} onPress={() => {saveData();}}/>
+                <Button title={"Save"} onPress={() => {
+                    saveData();
+                }}/>
             </View>
         </SafeAreaView>
     );

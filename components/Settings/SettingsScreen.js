@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import storage from "../Storage";
 
@@ -7,7 +7,9 @@ const SettingsScreen = () => {
         const [selectedNumber, setSelectedNumber] = useState('1');
         const [selectedOption, setSelectedOption] = useState('60');
 
-        React.useEffect(() => { loadData()}, []);
+        React.useEffect(() => {
+            loadData()
+        }, []);
 
         const saveData = async () => {
             storage.save({
@@ -68,7 +70,9 @@ const SettingsScreen = () => {
 
                 <Text style={styles.warning}>Zmiany będę wprowadzone od nowej gry</Text>
 
-                <Button title={"Save"} onPress={() => {saveData()}}/>
+                <Button title={"Save"} onPress={() => {
+                    saveData()
+                }}/>
             </View>
         );
     }
@@ -80,7 +84,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    title:{
+    title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,

@@ -1,10 +1,11 @@
-import { render, fireEvent } from '@testing-library/react-native';
+import {fireEvent, render} from '@testing-library/react-native';
 import Card from '../../../components/Game1/Card';
 
 describe('Card', () => {
     it('displays the children when isTurnedOver is true', () => {
-        const { getByText } = render(
-            <Card isTurnedOver={true} onPress={() => {}}>
+        const {getByText} = render(
+            <Card isTurnedOver={true} onPress={() => {
+            }}>
                 🥹
             </Card>
         );
@@ -13,8 +14,9 @@ describe('Card', () => {
     });
 
     it('displays "?" when isTurnedOver is false', () => {
-        const { getByText } = render(
-            <Card isTurnedOver={false} onPress={() => {}}>
+        const {getByText} = render(
+            <Card isTurnedOver={false} onPress={() => {
+            }}>
                 🥹
             </Card>
         );
@@ -24,7 +26,7 @@ describe('Card', () => {
 
     it('invokes onPress callback when pressed', () => {
         const onPressMock = jest.fn();
-        const { getByTestId } = render(
+        const {getByTestId} = render(
             <Card isTurnedOver={false} onPress={onPressMock} testID="card">
                 🥹
             </Card>

@@ -1,63 +1,63 @@
-
 <!doctype html>
 <html lang="en">
 
 <head>
     <title>Code coverage report for components/Game1/Game1.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <link href="../../prettify.css" rel="stylesheet"/>
+    <link href="../../base.css" rel="stylesheet"/>
+    <link href="../../favicon.png" rel="shortcut icon" type="image/x-icon"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <style type='text/css'>
         .coverage-summary .sorter {
             background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
-    
+
 <body>
 <div class='wrapper'>
     <div class='pad1'>
         <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Game1</a> Game1.js</h1>
         <div class='clearfix'>
-            
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">75.4% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>46/61</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">54.54% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>12/22</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">53.84% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>14/26</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">77.77% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>42/54</span>
             </div>
-        
-            
+
+
         </div>
         <p class="quiet">
-            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for
+            the previous block.
         </p>
         <template id="filterTemplate">
             <div class="quiet">
                 Filter:
-                <input oninput="onInput()" type="search" id="fileSearch">
+                <input id="fileSearch" oninput="onInput()" type="search">
             </div>
         </template>
     </div>
@@ -417,18 +417,20 @@ export default function Game1() {
     React.useEffect(() =&gt; {
         if (selectedCards.length &lt; 2) return;
 &nbsp;
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (board[selectedCards[0]] === board[selectedCards[1]]) {
-<span class="cstat-no" title="statement not covered" >            setMatchedCards([...matchedCards, ...selectedCards]);</span>
-<span class="cstat-no" title="statement not covered" >            setSelectedCards([]);</span>
+        <span class="missing-if-branch" title="if path not taken">I</span>if (board[selectedCards[0]] === board[selectedCards[1]]) {
+<span class="cstat-no"
+      title="statement not covered">            setMatchedCards([...matchedCards, ...selectedCards]);</span>
+<span class="cstat-no" title="statement not covered">            setSelectedCards([]);</span>
         } else {
-            const timeoutId = setTimeout(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setSelectedCards([]),</span> 1000);
+            const timeoutId = setTimeout(<span class="fstat-no" title="function not covered">()</span> =&gt; <span
+            class="cstat-no" title="statement not covered">setSelectedCards([]),</span> 1000);
             return () =&gt; clearTimeout(timeoutId);
         }
     }, [selectedCards]);
 &nbsp;
     React.useEffect(() =&gt; {
         restartGame();
-        loadData().catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+        loadData().catch(<span class="fstat-no" title="function not covered">()</span> =&gt; {
         })
     }, []);
 &nbsp;
@@ -440,7 +442,8 @@ export default function Game1() {
     }, [score, matchedCards]);
 &nbsp;
     const handleTapCard = (index) =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedCards.length &gt;= 2 || selectedCards.includes(index)) <span class="cstat-no" title="statement not covered" >return;</span>
+        <span class="missing-if-branch" title="if path not taken">I</span>if (selectedCards.length &gt;= 2 || selectedCards.includes(index)) <span
+            class="cstat-no" title="statement not covered">return;</span>
         setSelectedCards([...selectedCards, index]);
         setScore(score + 1);
     };
@@ -458,36 +461,41 @@ export default function Game1() {
         storage.save({
             key: 'score',
             data: score,
-        }).catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+        }).catch(<span class="fstat-no" title="function not covered">()</span> =&gt; {
         });
-<span class="cstat-no" title="statement not covered" >        storage.save({</span>
+<span class="cstat-no" title="statement not covered">        storage.save({</span>
             key: 'board',
             data: board,
-        }).catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+        }).catch(<span class="fstat-no" title="function not covered">()</span> =&gt; {
         });
-<span class="cstat-no" title="statement not covered" >        storage.save({</span>
+<span class="cstat-no" title="statement not covered">        storage.save({</span>
             key: 'matchedCards',
             data: matchedCards,
-        }).catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+        }).catch(<span class="fstat-no" title="function not covered">()</span> =&gt; {
         });
     };
 &nbsp;
     const loadData = async () =&gt; {
         try {
-            storage.load({key: 'score'}).then(<span class="fstat-no" title="function not covered" >(s</span>core1) =&gt; <span class="cstat-no" title="statement not covered" >setScore(score1 ?? 0))</span>
-<span class="cstat-no" title="statement not covered" >            storage.load({key: 'board'}).then(<span class="fstat-no" title="function not covered" >(b</span>oard1) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                if (!board1 || board1.length === 0)</span>
-<span class="cstat-no" title="statement not covered" >                    restartGame();</span>
-                else <span class="cstat-no" title="statement not covered" >setBoard(board1)</span>
-            }).catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+            storage.load({key: 'score'}).then(<span class="fstat-no" title="function not covered">(s</span>core1) =&gt; <span
+            class="cstat-no" title="statement not covered">setScore(score1 ?? 0))</span>
+<span class="cstat-no" title="statement not covered">            storage.load({key: 'board'}).then(<span
+        class="fstat-no" title="function not covered">(b</span>oard1) =&gt; {</span>
+<span class="cstat-no" title="statement not covered">                if (!board1 || board1.length === 0)</span>
+<span class="cstat-no" title="statement not covered">                    restartGame();</span>
+                else <span class="cstat-no" title="statement not covered">setBoard(board1)</span>
+            }).catch(<span class="fstat-no" title="function not covered">()</span> =&gt; {
             });
-<span class="cstat-no" title="statement not covered" >            storage.load({key: 'matchedCards'}).then(<span class="fstat-no" title="function not covered" >(m</span>atchedCards1) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                setMatchedCards(matchedCards1 ?? [])</span>
-            }).catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered">            storage.load({key: 'matchedCards'}).then(<span
+        class="fstat-no" title="function not covered">(m</span>atchedCards1) =&gt; {</span>
+<span class="cstat-no" title="statement not covered">                setMatchedCards(matchedCards1 ?? [])</span>
+            }).catch(<span class="fstat-no" title="function not covered">()</span> =&gt; {
             });
-<span class="cstat-no" title="statement not covered" >            storage.load({key: 'memorySettings'}).then(<span class="fstat-no" title="function not covered" >(m</span>emorySettings) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                cards = cards.slice(0, memorySettings.number)</span>
-            }).catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered">            storage.load({key: 'memorySettings'}).then(<span
+        class="fstat-no" title="function not covered">(m</span>emorySettings) =&gt; {</span>
+<span class="cstat-no"
+      title="statement not covered">                cards = cards.slice(0, memorySettings.number)</span>
+            }).catch(<span class="fstat-no" title="function not covered">()</span> =&gt; {
             });
 &nbsp;
         } catch {
@@ -554,21 +562,21 @@ function shuffle(array) {
     return array;
 }</pre></td></tr></table></pre>
 
-                <div class='push'></div><!-- for sticky footer -->
-            </div><!-- /wrapper -->
-            <div class='footer quiet pad2 space-top1 center small'>
-                Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-28T11:59:27.646Z
-            </div>
-        <script src="../../prettify.js"></script>
-        <script>
-            window.onload = function () {
-                prettyPrint();
-            };
-        </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
-    </body>
+    <div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+    Code coverage generated by
+    <a href="https://istanbul.js.org/" rel="noopener noreferrer" target="_blank">istanbul</a>
+    at 2023-05-28T11:59:27.646Z
+</div>
+<script src="../../prettify.js"></script>
+<script>
+    window.onload = function () {
+        prettyPrint();
+    };
+</script>
+<script src="../../sorter.js"></script>
+<script src="../../block-navigation.js"></script>
+</body>
 </html>
     
