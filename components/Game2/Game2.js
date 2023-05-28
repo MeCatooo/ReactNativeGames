@@ -31,18 +31,18 @@ export default function Game2() {
             height = height * 0.9;
             const {x: ballX, y: ballY, vx, vy} = ballPosition;
             const {x: holeX, y: holeY} = holePosition;
-            const dt = 1 / 60; // delta time
-            const ax = gyroData.y * 1000; // acceleration along x axis
-            const ay = gyroData.x * 1000; // acceleration along y axis
-            let newVx = vx + ax * dt; // new velocity along x axis
-            let newVy = vy + ay * dt; // new velocity along y axis
-            const newX = Math.max(0, Math.min(width, ballX + newVx * dt)); // new position along x axis
-            const newY = Math.max(0, Math.min(height, ballY + newVy * dt)); // new position along y axis
+            const dt = 1 / 60;
+            const ax = gyroData.y * 1000;
+            const ay = gyroData.x * 1000;
+            let newVx = vx + ax * dt;
+            let newVy = vy + ay * dt;
+            const newX = Math.max(0, Math.min(width, ballX + newVx * dt));
+            const newY = Math.max(0, Math.min(height, ballY + newVy * dt));
 
             if (newX === 0 || newX === width) {
-                newVx = -newVx * 0.7; // reflect velocity
+                newVx = -newVx * 0.7;
             } else if (newY === 0 || newY === height) {
-                newVy = -newVy * 0.7; // reflect velocity
+                newVy = -newVy * 0.7;
             }
 
             setBallPosition({x: newX, y: newY, vx: newVx, vy: newVy});
@@ -83,6 +83,11 @@ export default function Game2() {
         return {x: holeX, y: holeY};
     };
 
+    const updateScore = (newScore) => {
+        setScore(newScore);
+    };
+
+
     useEffect(() => {
         if (score > highestScore) {
             setHighestScore(score);
@@ -104,18 +109,21 @@ export default function Game2() {
     }, []);
 
     const loadData = async () => {
-        storage.load({
-            key: 'highestScore',
-        }).then(ret => {
-            console.log(ret)
-            setHighestScore(ret);
-        }).catch(()=>{})
+        try {
+            storage.load({
+                key: 'highestScore',
+            }).then(ret => {
+                setHighestScore(ret);
+            }).catch(()=>{})
 
-        storage.load({
-            key: 'ballSettings',
-        }).then(ret => {
-            setTimerSettings(ret.option)
-        }).catch(()=>{})
+            storage.load({
+                key: 'ballSettings',
+            }).then(ret => {
+                setTimerSettings(ret.option)
+            }).catch(()=>{})
+        } catch {
+
+        }
     }
 
     const saveData = async () => {
@@ -128,7 +136,7 @@ export default function Game2() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.score}>Score: {score}</Text>
+            <Text testID="Score" style={styles.score}>Score: {score}</Text>
             <Text style={styles.timer}>Timer: {timer}s</Text>
             {!gameStarted && !gameOver && (
                 <Text style={styles.startButton} onPress={startGame}>

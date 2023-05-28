@@ -1,70 +1,57 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import Game2 from '../../../components/Game2/Game2';
 
+jest.mock('../../../components/Storage');
+
+jest.useFakeTimers();
+
+jest.mock('expo-sensors', () => ({
+    Gyroscope: {
+        setUpdateInterval: jest.fn(),
+        addListener: jest.fn(),
+        removeAllListeners: jest.fn(),
+    },
+}));
+
 describe('Game2', () => {
-    test('renders start game button', () => {
-        const { getByText } = render(<Game2 />);
-        const startButton = getByText('Start Game');
-        expect(startButton).toBeTruthy();
+    it('wyświetla poprawny początkowy wynik', () => {
+        const { getByTestId } = render(<Game2 />);
+        const score = getByTestId('Score');
+        expect(score.props.children).toContain(0);
     });
 
-    test('starts the game on button press', () => {
+    it('rozpoczyna grę po naciśnięciu przycisku Start Game', async () => {
+        const { getByText } = render(<Game2 />);
+        const startButton = getByText('Start Game');
+
+        fireEvent.press(startButton);
+
+        await waitFor(() => {
+            expect(getByText('Timer: 60s')).toBeTruthy();
+        });
+    });
+
+
+    it('rozpoczyna grę na nowo po naciśnięciu przycisku Play Again', async () => {
         const { getByText, getByTestId } = render(<Game2 />);
         const startButton = getByText('Start Game');
-        fireEvent.press(startButton);
-        setTimeout(() => {
-        const ball = getByTestId('ball');
-        const hole = getByTestId('hole');
-        expect(ball).toBeTruthy();
-        expect(hole).toBeTruthy();
-        }, 2000);
-    });
 
-    test('renders ball and hole when game starts', () => {
-        const { getByText, getByTestId, queryByTestId } = render(<Game2 />);
-        const startButton = getByText('Start Game');
         fireEvent.press(startButton);
-        setTimeout(() => {
-        const ball = getByTestId('ball');
-        const hole = getByTestId('hole');
-        expect(ball).toBeTruthy();
-        expect(hole).toBeTruthy();
-        expect(queryByTestId('start-button')).toBeNull();
-        }, 2000);
-    });
 
-    test('ends the game when timer reaches 0', () => {
-        jest.useFakeTimers();
-        const { getByText, queryByText } = render(<Game2 />);
-        const startButton = getByText('Start Game');
-        fireEvent.press(startButton);
-        jest.advanceTimersByTime(61000);
-        const gameOverText = getByText('Game Over');
-        expect(gameOverText).toBeTruthy();
+        jest.advanceTimersByTime(60000);
+
+        await waitFor(() => {
+            expect(getByText('Game Over')).toBeTruthy();
+        });
+
         const playAgainButton = getByText('Play Again');
-        expect(playAgainButton).toBeTruthy();
-        const startButtonAfterGame = queryByText('Start Game');
-        expect(startButtonAfterGame).toBeNull();
+        fireEvent.press(playAgainButton);
+
+        await waitFor(() => {
+            const score = getByTestId('Score');
+            expect(score.props.children).toContain(0);
+            expect(getByText('Timer: 60s')).toBeTruthy();
+        });
     });
-
-    test('saves and loads highest score', () => {
-        const { getByText } = render(<Game2 />);
-        const startButton = getByText('Start Game');
-        fireEvent.press(startButton);
-        setTimeout(() => {
-            const scoreText = getByText('Score: 5');
-            expect(scoreText).toBeTruthy();
-            const highestScoreText = getByText('Highest Score: 5');
-            expect(highestScoreText).toBeTruthy();
-        }, 2000);
-    });
-
-    test('renders timer', () => {
-        const { getByText } = render(<Game2 />);
-        const timerText = getByText('Timer: 60s');
-        expect(timerText).toBeTruthy();
-    });
-
-
 });

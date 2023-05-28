@@ -1,11 +1,12 @@
 import * as React from "react";
 import { Text, StyleSheet, Pressable } from "react-native";
 
-export default function Card({ onPress, isTurnedOver, children }) {
+export default function Card({ onPress, isTurnedOver, children, testID }) {
     return (
         <Pressable
             style={isTurnedOver ? styles.cardUp : styles.cardDown}
             onPress={onPress}
+            testID={testID}
         >
             {isTurnedOver ? (
                 <Text style={styles.text}>{children}</Text>
@@ -15,6 +16,7 @@ export default function Card({ onPress, isTurnedOver, children }) {
         </Pressable>
     );
 }
+
 
 const styles = StyleSheet.create({
     cardUp: {

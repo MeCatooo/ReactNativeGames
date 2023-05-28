@@ -88,13 +88,16 @@ export default function Game1() {
                 if (!board1 || board1.length === 0)
                     restartGame();
                 else setBoard(board1)
-            })
+            }).catch(() => {
+            });
             storage.load({key: 'matchedCards'}).then((matchedCards1) => {
                 setMatchedCards(matchedCards1 ?? [])
-            })
+            }).catch(() => {
+            });
             storage.load({key: 'memorySettings'}).then((memorySettings) => {
                 cards = cards.slice(0, memorySettings.number)
-            })
+            }).catch(() => {
+            });
 
         } catch {
             console.log("cannot load data");
@@ -108,7 +111,7 @@ export default function Game1() {
             <Text style={styles.title}>
                 {didPlayerWin() ? "Congratulations 🎉" : "Memory"}
             </Text>
-            <Text style={styles.title}>Score: {score}</Text>
+            <Text style={styles.title} testID={"Score"}>Score: {score}</Text>
             <ScrollView contentContainerStyle={styles.board}>
                 {board.map((card, index) => {
                     const isTurnedOver =
@@ -116,6 +119,7 @@ export default function Game1() {
                     return (
                         <Card
                             key={index}
+                            testID={"Card"}
                             isTurnedOver={isTurnedOver}
                             onPress={() => handleTapCard(index)}
                         >
