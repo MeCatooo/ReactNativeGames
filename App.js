@@ -7,7 +7,7 @@ import {HomeScreen} from "./components/HomeScreen";
 import {ProfileScreen} from "./components/Profile/ProfileScreen";
 import Game1 from "./components/Game1/Game1";
 import Game2 from "./components/Game2/Game2";
-import Game3 from "./components/Game3/Game3";
+import About from "./components/About";
 import SettingsScreen from "./components/Settings/SettingsScreen";
 import {getStore} from "./components/Storage";
 import {PickImage} from "./components/Profile/pickImage";
@@ -56,7 +56,7 @@ export default function App() {
                 />
                 <Stack.Screen name="Memory" component={Game1} options={{orientation: 'all'}}/>
                 <Stack.Screen name="Ball" component={Game2} options={{orientation: 'portrait'}}/>
-                <Stack.Screen name="About" component={Game3}/>
+                <Stack.Screen name="About" component={About}/>
                 <Stack.Screen name="Settings" component={SettingsScreen}/>
                 <Stack.Screen name="Profile" component={ProfileScreen}/>
                 <Stack.Screen name="ProfilePic" component={PickImage}/>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from "react-native";
 
-const Game3 = () => {
+const About = () => {
     return (
         <ScrollView style={styles.container}>
             <Text style={styles.mainTitle}>About</Text>
@@ -62,4 +62,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Game3;
+export default About;
